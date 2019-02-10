@@ -16,9 +16,13 @@ fn main() {
 }
 
 fn fib(n: u32) -> u32{
+    run_fib(0, 1, n)
+}
+
+fn run_fib(a: u32, b: u32, n: u32) -> u32{
     if n == 0 || n == 1{
-        n
+        b
     }else{
-        fib(n - 1) + fib(n - 2)
+        run_fib(b, a + b, n - 1)
     }
 }
