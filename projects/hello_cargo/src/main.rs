@@ -11,5 +11,9 @@ fn main() {
         }
     };
 
-    println!("Counter is {}", result)
+    println!("Counter is {}", result);
+
+    for number in 2..5{
+        println!("{}!", number);
+    }
 }
