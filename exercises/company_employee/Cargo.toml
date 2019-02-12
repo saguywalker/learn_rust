@@ -1,0 +1,7 @@
+[package]
+name = "company_employee"
+version = "0.1.0"
+authors = ["saguywalker <guyguy252@gmail.com>"]
+edition = "2018"
+
+[dependencies]
