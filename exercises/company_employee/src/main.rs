@@ -11,11 +11,11 @@ fn main() {
         io::stdin().read_line(&mut input)
             .expect("Failed to read line!");
         input = input.trim().to_string();
-        println!("You entered {}", input);
+    
         match input.as_ref(){
-            "1" => add_employee(),
-            "2" => search_from_dept(),
-            "3" => search_all(),
+            "1" => add_employee(&mut company),
+            "2" => search_from_dept(&company),
+            "3" => search_all(&company),
             "Q" => break,
             _ => {
                 println!("Please enter only 1,2,3 and Q!")
@@ -26,22 +26,24 @@ fn main() {
     }
 }
 
-fn add_employee() {
+fn add_employee(comp:&mut HashMap<&str, Vec<&str>>){
     println!("Please enter data...");
     let mut input = String::new();
     io::stdin().read_line(&mut input)
         .expect("Failed to read line!");
     println!("You entered {}", input);
+
 }
 
-fn search_from_dept(){
+fn search_from_dept(comp: &HashMap<&str, Vec<&str>>){
     println!("Please enter department...");
     let mut input = String::new();
     io::stdin().read_line(&mut input)
         .expect("Failed to read line!");
     println!("You entered {}", input);
+
 }
 
-fn search_all(){
+fn search_all(comp: &HashMap<&str, Vec<&str>>){
     println!("Search all.");
 }
