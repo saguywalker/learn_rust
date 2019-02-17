@@ -2,48 +2,66 @@ use std::io;
 use std::collections::HashMap;
 
 fn main() {
-    let mut company:HashMap<&str, Vec<&str>> = HashMap::new();
+    let mut employees: HashMap<String, Vec<String>> = HashMap::new();
     let mut input = String::new();
-    
+    println!("Type 'Add <name> to <dept> to add an employee'");
+    println!("Type 'List <dept>' to show all employees from dept");
+    println!("Type 'All' to show all employees from company");
+    println!("Type 'Quit' to quit");
+
     loop{
-        println!("Add employee(1), search employee from department(2), search all(3)...");
         input.clear();
+        println!("Please type command.");
         io::stdin().read_line(&mut input)
-            .expect("Failed to read line!");
-        input = input.trim().to_string();
-    
-        match input.as_ref(){
-            "1" => add_employee(&mut company),
-            "2" => search_from_dept(&company),
-            "3" => search_all(&company),
-            "Q" => break,
-            _ => {
-                println!("Please enter only 1,2,3 and Q!")
-            }
+            .expect("Failed to read line");
+
+        match Cmd::from_input(&input){
+            Some(Cmd::Add{dept, name}) => employees.entry(dept).or_insert(Vec::new()).push(name),
+            Some(Cmd::List(dept)) => match employees.get(&dept){
+                Some(names) => {
+                    println!("All employees in {} dept...", dept);
+                    for (i, name) in names.iter().enumerate(){
+                        println!("{}. {}", i+1, name);
+                    }
+                }
+                None => println!("No employee in {} dept", dept),
+            },
+            Some(Cmd::All) => {
+                let mut count = 1;
+                for (dept, names) in &employees{
+                    for name in names{
+                        println!("{}. {} ({})", count, name, dept);
+                        count += 1;
+                    }
+                }
+            },
+            Some(Cmd::Quit) => break,
+            None => println!("Wrong command!"),
         };
-        
-        println!("*************************");
+
+        println!("***********************************************");
     }
 }
 
-fn add_employee(comp:&mut HashMap<&str, Vec<&str>>){
-    println!("Please enter data...");
-    let mut input = String::new();
-    io::stdin().read_line(&mut input)
-        .expect("Failed to read line!");
-    println!("You entered {}", input);
-
+enum Cmd{
+    Add{dept: String, name: String},
+    List(String),
+    All,
+    Quit,
 }
 
-fn search_from_dept(comp: &HashMap<&str, Vec<&str>>){
-    println!("Please enter department...");
-    let mut input = String::new();
-    io::stdin().read_line(&mut input)
-        .expect("Failed to read line!");
-    println!("You entered {}", input);
-
-}
-
-fn search_all(comp: &HashMap<&str, Vec<&str>>){
-    println!("Search all.");
+impl Cmd{
+    fn from_input(s: &str) -> Option<Self>{
+        let words: Vec<&str> = s.trim().split_whitespace().collect();
+        match words.as_slice(){
+            ["Add", name, "to", dept] => Some(Cmd::Add{
+                dept: dept.to_string(),
+                name: name.to_string(),
+            }),
+            ["List", dept] => Some(Cmd::List(dept.to_string())),
+            ["All"] => Some(Cmd::All),
+            ["Quit"] => Some(Cmd::Quit),
+            _ => None,
+        }
+    }
 }
