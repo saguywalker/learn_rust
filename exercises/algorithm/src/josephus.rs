@@ -13,4 +13,5 @@ pub fn josephus(m: u32, n: u32) {
         }
         print!("{} ", queue.pop_front().unwrap());
     }
+    println!();
 }

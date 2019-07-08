@@ -1,1 +1,1 @@
-D:\coding\rust-practice\exercises\algorithm\target\debug\algorithm.pdb: D:\coding\rust-practice\exercises\algorithm\src\josephus.rs D:\coding\rust-practice\exercises\algorithm\src\main.rs
+C:\Users\n0083\rust-practice\exercises\algorithm\target\debug\algorithm.pdb: C:\Users\n0083\rust-practice\exercises\algorithm\src\josephus.rs C:\Users\n0083\rust-practice\exercises\algorithm\src\main.rs C:\Users\n0083\rust-practice\exercises\algorithm\src\problem1.rs
